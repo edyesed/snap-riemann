@@ -1,0 +1,36 @@
+{
+    "version": 1,
+    "schedule": {
+        "type": "simple",
+        "interval": "1s"
+    },
+    "workflow": {
+        "collect": {
+            "metrics": {
+                "/intel/mock/*/baz":{},
+                "/intel/mock/bar": {},
+                "/intel/mock/foo": {}
+            },
+            "config": {
+                "/intel/mock": {
+                    "user": "root",
+                    "password": "secret"
+                }
+            },
+            "process": [
+                {
+                    "plugin_name": "passthru",                    
+                    "process": null,
+                    "publish": [
+                        {
+                            "plugin_name": "riemann",
+                            "config": {
+                                "broker": "riemann:5555"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}

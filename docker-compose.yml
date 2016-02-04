@@ -1,0 +1,30 @@
+# 
+# OMG, you also want to link up intelsdi's snap to riemann?
+#
+riemann-dash:
+  image: travix/riemann-dash:latest
+  ports:
+    - "4567:4567"
+  links:
+    - riemann-server:riemann
+
+riemann-server:
+  image: travix/riemann-server:latest
+  ports:
+    - "5555:5555"
+    - "5556:5556"
+    - "16384:16384"
+
+snap:
+  image: edyesed/intelsdi-snap:v0.11.0-beta
+  ports:
+    - "8181:8181"
+  links:
+    - riemann-server:riemann
+
+snap-configurator:
+  build: snap-configurator
+  links:
+    - snap:snap-server
+
+
