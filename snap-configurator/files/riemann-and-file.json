@@ -1,0 +1,42 @@
+{
+    "version": 1,
+    "schedule": {
+        "type": "simple",
+        "interval": "1s"
+    },
+    "workflow": {
+        "collect": {
+            "metrics": {
+                "/intel/mock/*/baz":{},
+                "/intel/mock/foo": {},
+                "/intel/mock/bar": {}
+            },
+            "config": {
+                "/intel/mock": {
+                    "user": "root",
+                    "password": "secret"
+                }
+            },
+            "process": [
+                {
+                    "plugin_name": "passthru",
+                    "process": null,
+                    "publish": [
+                        {
+                            "plugin_name": "riemann",
+                            "config": {
+                                "broker": "riemann:5555"
+                            }
+                        },
+                        {
+                           "plugin_name": "file",
+                           "config": {
+                              "file": "/tmp/snap_published_mock_file.log"
+                           }
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}
