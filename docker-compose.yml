@@ -15,16 +15,16 @@ riemann-server:
     - "5556:5556"
     - "16384:16384"
 
-dashd:
+snap:
   image: edyesed/intelsdi-snap:v0.11.0-beta
   ports:
     - "8181:8181"
   links:
     - riemann-server:riemann
 
-dashd-configurator:
+snap-configurator:
   build: snap-configurator
   links:
-    - dashd:dash-server
+    - snap:snap-server
 
 
